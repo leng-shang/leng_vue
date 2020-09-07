@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if='flag'>服务器崩溃了</p>
+        <Hello v-else/>
+    </div>
+
+    <template id="hello">
+        <div></div>
+    </template>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('Hello',{
+        template:'#hello',
+        data(){
+            return {}
+        },
+        mounted(){
+            const error=new Error('服务器崩溃了')
+            throw error
+        },
+        destroyed(){
+            console.log('destroyed')
+        }
+
+    })
+    new Vue({
+        el:'#app',
+        data:{
+            flag:false
+        },
+        errorCaptured(err,vm,info){
+            console.log(err)
+            console.log(vm.$options._componentTag)
+            console.log(info)
+        }
+
+    })
+
+</script>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model='money'>
+        <select name="" id="" v-model='type'>
+            <option value="CNY" selected>人民币</option>
+            <option value="USD">美元</option>
+            <option value="JPY">日元</option>
+            <option value="EUR">欧元</option>
+            <option value="KRW">韩元</option>
+        </select>
+        <p>{{type}}</p>
+        <p>{{changehb(money,type)}}</p>
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    //过滤器实现
+    // Vue.filter('changehb', (val, type) => {
+    //     switch (type) {
+    //         case 'USD':
+    //             return '$' + val * 0.1464;
+    //             break
+    //         case 'JPY':
+    //             return '￥' + val * 15.5515;
+    //             break
+    //         case 'EUR':
+    //             return '€' + val * 0.1237;
+    //             break;
+    //         case 'KRW':
+    //             return '원' + val * 173.9003
+    //             break
+
+    //         default:
+    //             return '￥' + val
+
+    //     }
+    // })
+    new Vue({
+        el: '#app',
+        data: {
+            money: 100,
+            type: 'CNY'
+        },
+        //计算属性实现
+        computed: {
+            changehb(val,type) {
+                return function (val, type) {
+                    switch (type) {
+                        case 'USD':
+                            return '$' + val * 0.1464;
+                            break
+                        case 'JPY':
+                            return '￥' + val * 15.5515;
+                            break
+                        case 'EUR':
+                            return '€' + val * 0.1237;
+                            break;
+                        case 'KRW':
+                            return '원' + val * 173.9003
+                            break
+
+                        default:
+                            return '￥' + val
+                    }
+                }
+            }
+        }
+    })
+</script>

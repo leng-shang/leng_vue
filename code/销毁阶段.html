@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click='destroy'>销毁组件</button>
+        <Hello v-if='flag'/>
+    </div>
+
+    <template id="hello">
+        <div>
+           
+        </div>
+    </template>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('Hello',{
+        template:'#hello',
+        mounted(){
+            this.timer=setInterval(()=>{
+                console.log(1)
+            },1000)
+        },
+        data(){
+            return {}
+        },
+        destroyed(){
+            //删除第三方库实列
+            //删除绑定在BOM上的事件
+            //删除定时器和延时器
+            console.log(1);
+            clearInterval(this.timer)
+        }
+    })
+    new Vue({
+        el:'#app',
+        data:{
+            flag:true
+        },
+        methods:{
+            destroy(){
+                this.flag=false
+            }
+        }
+    })
+</script>
